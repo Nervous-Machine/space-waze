@@ -1,0 +1,1183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>The LEO Density Program — where the Space Atlas started</title>
+    <meta name="description"
+        content="Per-driver attribution and certainty for thermospheric density, voxel by voxel. Edge-enabled causal learning with uncertainty quantification, validated on GRACE-FO accelerometer data." />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg: #0a0a0f;
+            --bg-card: #12121a;
+            --bg-card-2: #1a1a2a;
+            --border: #2a2a3a;
+            --text: #e0e0e0;
+            --muted: #888;
+            --dim: #666;
+            --cyan: #00d4ff;
+            --purple: #7b2ff7;
+            --green: #00d464;
+            --yellow: #ffd700;
+            --red: #ff6464;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            line-height: 1.55;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .mono {
+            font-family: 'SF Mono', 'Fira Code', Menlo, monospace;
+        }
+
+        a {
+            color: var(--cyan);
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* ========== Top bar (workshop banner) ========== */
+        .topbar {
+            background: linear-gradient(90deg, rgba(0, 212, 255, 0.08), rgba(123, 47, 247, 0.08));
+            border-bottom: 1px solid var(--border);
+            font-size: 0.85rem;
+            padding: 8px 0;
+            color: var(--muted);
+        }
+
+        .topbar .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .topbar a {
+            color: var(--cyan);
+        }
+
+        .topbar strong {
+            color: var(--text);
+        }
+
+        /* ========== Header ========== */
+        header.site {
+            padding: 28px 0 16px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        header.site .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .brand h1 {
+            font-size: 1.4rem;
+            background: linear-gradient(135deg, #00d4ff, #7b2ff7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .brand .by {
+            font-size: 0.8rem;
+            color: var(--muted);
+            margin-top: 2px;
+        }
+
+        nav.primary {
+            display: flex;
+            gap: 22px;
+            font-size: 0.9rem;
+        }
+
+        nav.primary a {
+            color: var(--text);
+            opacity: 0.8;
+        }
+
+        nav.primary a:hover {
+            opacity: 1;
+            text-decoration: none;
+        }
+
+        /* ========== Hero ========== */
+        section.hero {
+            padding: 64px 0 48px;
+        }
+
+        .hero h2 {
+            font-size: 2.4rem;
+            line-height: 1.15;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            margin-bottom: 20px;
+            max-width: 880px;
+        }
+
+        .hero h2 .accent {
+            background: linear-gradient(135deg, #00d4ff, #7b2ff7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero .lede {
+            font-size: 1.15rem;
+            color: #c0c0c0;
+            max-width: 760px;
+            margin-bottom: 28px;
+        }
+
+        .hero .ctas {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 18px;
+            border-radius: 8px;
+            font-size: 0.92rem;
+            font-weight: 500;
+            border: 1px solid var(--border);
+            background: rgba(255, 255, 255, 0.03);
+            color: var(--text);
+            transition: all 0.15s;
+        }
+
+        .btn:hover {
+            background: rgba(255, 255, 255, 0.07);
+            text-decoration: none;
+            border-color: #3a3a4a;
+        }
+
+        .btn.primary {
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.18), rgba(123, 47, 247, 0.18));
+            border-color: rgba(0, 212, 255, 0.45);
+            color: #fff;
+        }
+
+        .btn.primary:hover {
+            border-color: rgba(0, 212, 255, 0.75);
+        }
+
+        /* ========== Section ========== */
+        section.block {
+            padding: 48px 0;
+            border-top: 1px solid var(--border);
+        }
+
+        .eyebrow {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--muted);
+            margin-bottom: 12px;
+        }
+
+        h3.section-title {
+            font-size: 1.7rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+            letter-spacing: -0.3px;
+        }
+
+        .section-lede {
+            color: #b0b0b0;
+            max-width: 720px;
+            margin-bottom: 28px;
+        }
+
+        /* ========== Method (3-up) ========== */
+        .three-up {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        @media (max-width: 800px) {
+            .three-up {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .pillar {
+            background: linear-gradient(135deg, var(--bg-card), var(--bg-card-2));
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 22px;
+        }
+
+        .pillar h4 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--cyan);
+        }
+
+        .pillar p {
+            font-size: 0.93rem;
+            color: #b0b0b0;
+        }
+
+        /* ========== Phases (roadmap) ========== */
+        .pillar.phase h4 {
+            color: var(--text);
+            font-size: 1.05rem;
+            margin-bottom: 4px;
+        }
+
+        .phase-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .phase-num {
+            font-size: 0.72rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--muted);
+            font-weight: 500;
+        }
+
+        .phase-status {
+            font-size: 0.68rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 3px 9px;
+            border-radius: 999px;
+            font-weight: 600;
+        }
+
+        .phase-status.complete {
+            color: var(--green);
+            background: rgba(0, 212, 100, 0.1);
+            border: 1px solid rgba(0, 212, 100, 0.35);
+        }
+
+        .phase-status.open {
+            color: var(--cyan);
+            background: rgba(0, 212, 255, 0.1);
+            border: 1px solid rgba(0, 212, 255, 0.4);
+        }
+
+        /* ========== Earned certainty (callout) ========== */
+        .callout {
+            background: linear-gradient(135deg, rgba(123, 47, 247, 0.08), rgba(0, 212, 255, 0.05));
+            border: 1px solid rgba(123, 47, 247, 0.3);
+            border-radius: 12px;
+            padding: 28px;
+        }
+
+        .callout p {
+            margin-bottom: 12px;
+            color: #c5c5c5;
+        }
+
+        .callout p:last-child {
+            margin-bottom: 0;
+        }
+
+        .callout pre {
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 14px 16px;
+            font-size: 0.85rem;
+            font-family: 'SF Mono', Menlo, monospace;
+            overflow-x: auto;
+            color: #c8c8c8;
+            margin: 14px 0;
+        }
+
+        .callout pre .kw {
+            color: #b388ff;
+        }
+
+        .callout pre .cm {
+            color: var(--dim);
+        }
+
+        .callout pre .fn {
+            color: var(--cyan);
+        }
+
+        /* ========== Partnership ask ========== */
+        .ask-callout {
+            border-left: 3px solid var(--cyan);
+            background: rgba(0, 212, 255, 0.06);
+            padding: 16px 20px;
+            border-radius: 0 8px 8px 0;
+            margin-bottom: 24px;
+            font-size: 0.96rem;
+            color: #c5c5c5;
+            max-width: 760px;
+            line-height: 1.55;
+        }
+
+        .ask-callout strong {
+            color: var(--cyan);
+            margin-right: 4px;
+        }
+
+        /* ========== Grid card (live) ========== */
+        .grid-card {
+            background: linear-gradient(135deg, var(--bg-card), var(--bg-card-2));
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+        }
+
+        .grid-card .legend-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 14px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .local-time-tabs {
+            display: flex;
+            gap: 6px;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+        }
+
+        .lt-tab {
+            padding: 6px 12px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            color: var(--muted);
+            transition: all 0.15s;
+        }
+
+        .lt-tab:hover {
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .lt-tab.active {
+            background: rgba(0, 212, 255, 0.18);
+            border-color: var(--cyan);
+            color: var(--cyan);
+        }
+
+        .voxel-grid-container {
+            display: flex;
+            gap: 8px;
+            max-width: 760px;
+        }
+
+        .voxel-y-labels {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            font-size: 0.65rem;
+            color: var(--muted);
+            padding-right: 4px;
+            min-width: 96px;
+        }
+
+        .voxel-grid {
+            display: grid;
+            grid-template-columns: repeat(8, 1fr);
+            grid-template-rows: repeat(6, 1fr);
+            gap: 3px;
+            flex: 1;
+        }
+
+        .voxel {
+            aspect-ratio: 1.4;
+            border-radius: 3px;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            position: relative;
+            min-height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .voxel:hover {
+            transform: scale(1.18);
+            z-index: 10;
+            box-shadow: 0 0 14px currentColor;
+        }
+
+        .voxel-tooltip {
+            display: none;
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #1a1a2a;
+            border: 1px solid #3a3a4a;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 0.72rem;
+            white-space: nowrap;
+            z-index: 100;
+            color: var(--text);
+        }
+
+        .voxel:hover .voxel-tooltip {
+            display: block;
+        }
+
+        .voxel.outline {
+            background: transparent !important;
+            border: 1px dashed rgba(255, 255, 255, 0.14);
+            cursor: help;
+            opacity: 1 !important;
+            box-shadow: none !important;
+        }
+
+        .voxel.outline:hover {
+            transform: scale(1.12);
+            border-color: rgba(0, 212, 255, 0.55);
+            background: rgba(0, 212, 255, 0.05) !important;
+            box-shadow: 0 0 10px rgba(0, 212, 255, 0.2) !important;
+        }
+
+        .source-badge {
+            position: absolute;
+            top: 2px;
+            right: 2px;
+            font-size: 7px;
+            background: rgba(0, 212, 255, 0.3);
+            color: var(--cyan);
+            padding: 1px 3px;
+            border-radius: 2px;
+            letter-spacing: 0.5px;
+        }
+
+        .altitude-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.65rem;
+            color: var(--dim);
+            margin-top: 8px;
+            padding-left: 100px;
+            max-width: 760px;
+        }
+
+        .altitude-labels .gracefo {
+            color: var(--cyan);
+            font-weight: 600;
+        }
+
+        .legend {
+            display: flex;
+            gap: 14px;
+            font-size: 0.72rem;
+            color: var(--muted);
+            margin-top: 16px;
+            flex-wrap: wrap;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .legend-color {
+            width: 12px;
+            height: 12px;
+            border-radius: 2px;
+        }
+
+        .grid-caption {
+            font-size: 0.85rem;
+            color: var(--muted);
+            margin-top: 18px;
+            padding-top: 16px;
+            border-top: 1px solid var(--border);
+            max-width: 760px;
+        }
+
+        /* ========== Driver hierarchy table ========== */
+        .results-grid {
+            display: grid;
+            grid-template-columns: 1.4fr 1fr;
+            gap: 28px;
+        }
+
+        @media (max-width: 800px) {
+            .results-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        table.drivers {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.92rem;
+        }
+
+        table.drivers th,
+        table.drivers td {
+            text-align: left;
+            padding: 10px 12px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        table.drivers th {
+            font-size: 0.72rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--muted);
+            font-weight: 500;
+        }
+
+        table.drivers .num {
+            text-align: right;
+            font-family: 'SF Mono', Menlo, monospace;
+        }
+
+        table.drivers .hot {
+            color: var(--green);
+            font-weight: 600;
+        }
+
+        table.drivers .cold {
+            color: var(--muted);
+        }
+
+        table.drivers .delta {
+            color: var(--cyan);
+        }
+
+        .results-aside p {
+            color: #b0b0b0;
+            margin-bottom: 12px;
+            font-size: 0.93rem;
+        }
+
+        .results-aside .pull {
+            font-size: 1.05rem;
+            color: var(--text);
+            border-left: 2px solid var(--cyan);
+            padding-left: 14px;
+            margin-bottom: 16px;
+        }
+
+        /* ========== Read more ========== */
+        .reading-list {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+        }
+
+        @media (max-width: 700px) {
+            .reading-list {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .read-card {
+            display: block;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 18px;
+            transition: all 0.15s;
+        }
+
+        .read-card:hover {
+            background: var(--bg-card-2);
+            border-color: rgba(0, 212, 255, 0.4);
+            text-decoration: none;
+            transform: translateY(-1px);
+        }
+
+        .read-card .src {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            color: var(--cyan);
+            margin-bottom: 8px;
+        }
+
+        .read-card .title {
+            font-size: 1.02rem;
+            color: var(--text);
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        .read-card .desc {
+            font-size: 0.85rem;
+            color: var(--muted);
+        }
+
+        /* ========== Footer ========== */
+        footer {
+            border-top: 1px solid var(--border);
+            margin-top: 32px;
+            padding: 32px 0 40px;
+            color: var(--muted);
+            font-size: 0.85rem;
+        }
+
+        footer .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 14px;
+        }
+
+        footer .links {
+            display: flex;
+            gap: 18px;
+            flex-wrap: wrap;
+        }
+    </style>
+</head>
+
+<body>
+<div style="background:#1a2332;border-bottom:1px solid #2e3d55;padding:10px 16px;font:14px/1.5 -apple-system,sans-serif;color:#dfe6f0;text-align:center">
+This is where the program started: the LEO neutral-density campaign (GRACE-FO era), kept as history.
+The current, full program — LEO, GEO, cislunar, Mars, the gap register and the model audits — lives at
+<a href="/" style="color:#8ab4ff">the Atlas of Useful Space</a>.</div>
+
+    <div class="topbar">
+        <div class="container">
+            <span><strong>Space Weather Workshop 2026</strong> · Boulder, CO · Poster #18 · Wed Apr 29</span>
+            <span><a href="/poster_v7.pdf">View the poster &rarr;</a></span>
+        </div>
+    </div>
+
+    <header class="site">
+        <div class="container">
+            <div class="brand">
+                <h1>SPACE ATLAS</h1>
+                <div class="by">by <a href="https://nervousmachine.com">Nervous Machine</a></div>
+            </div>
+            <nav class="primary">
+                <a href="#method">Method</a>
+                <a href="#certainty">Earned certainty</a>
+                <a href="#grid">Live grid</a>
+                <a href="#results">GRACE-FO results</a>
+                <a href="#roadmap">Roadmap</a>
+                <a href="#read">Read more</a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h2>Causal learning for <span class="accent">neutral density in LEO</span> with uncertainty quantification.
+            </h2>
+            <p class="lede">
+                Space Atlas decomposes thermospheric density response into independent causal edges between
+                five space weather drivers and 180 spatial voxels — each with its own learned multiplier,
+                response lag, and certainty. The question isn&rsquo;t &ldquo;what is the density?&rdquo;
+                It&rsquo;s &ldquo;how much of this density change came from IMF B<sub>z</sub> reconnection
+                vs. ring-current intensification vs. auroral Joule heating?&rdquo; — and how confident
+                should we be in that attribution, voxel by voxel.
+            </p>
+            <div class="ctas">
+                <a class="btn primary" href="/poster_v7.pdf">View the workshop poster</a>
+                <a class="btn" href="https://nervousmachine.substack.com/p/curiosity-as-math-how-uncertainty">Curiosity
+                    as Math</a>
+                <a class="btn" href="https://nervousmachine.substack.com/p/18000-reasons-for-causal-learning">18,000
+                    Reasons for Causal Learning</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="block" id="method">
+        <div class="container">
+            <div class="eyebrow">The method</div>
+            <h3 class="section-title">Per-driver decomposition, not a scalar prediction.</h3>
+            <p class="section-lede">
+                Empirical models (NRLMSISE-2.0, JB2008) and ML models compress thermospheric chaos into a
+                single number. Both produce an answer; neither tells you why. Space Atlas resolves the
+                response into a graph of causal edges with learned dynamics and explicit uncertainty.
+            </p>
+            <div class="three-up">
+                <div class="pillar">
+                    <h4>5 drivers &times; 180 voxels</h4>
+                    <p>
+                        IMF B<sub>z</sub>, Dst, AE index, solar wind speed, solar wind density &rarr; voxels at
+                        6 latitude bands &times; 4 local-time sectors &times; 8 altitude layers (460–850 km).
+                        Each edge carries a multiplier <span class="mono">m</span>, a response lag, and a
+                        certainty score <span class="mono">Z</span>.
+                    </p>
+                </div>
+                <div class="pillar">
+                    <h4>Dissipative learning</h4>
+                    <p>
+                        Learning rate <span class="mono">&eta; = 1 / (1 + e<sup>10(Z&minus;0.5)</sup>)</span> —
+                        aggressive when uncertain, conservative when confident. Agile where ignorant,
+                        stable where certain.
+                    </p>
+                </div>
+                <div class="pillar">
+                    <h4>Edge-deployable</h4>
+                    <p>
+                        The learning loop runs onboard at &lt;1% compute, &lt;50&nbsp;MB memory,
+                        &lt;0.5&nbsp;W power. Operators share causal vectors (~1&nbsp;KB/day),
+                        not raw telemetry — privacy-preserving fleet learning by construction.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="block" id="certainty">
+        <div class="container">
+            <div class="eyebrow">Earned certainty</div>
+            <h3 class="section-title">You can&rsquo;t be confident about a relationship you haven&rsquo;t observed under
+                load.</h3>
+            <p class="section-lede">
+                An early version of this pipeline awarded confidence to drivers for being asleep. During quiet
+                geomagnetic conditions — which dominate any 13-month dataset — most drivers contribute near-zero
+                to the prediction, so their attributed error looks like a perfect fit. Certainty climbed for the
+                wrong reason.
+            </p>
+            <div class="callout">
+                <p>The fix is <strong>activity gating</strong>: only update a driver&rsquo;s certainty when its
+                    activity weight exceeds 10% of total driver activity. Quiet observations contribute no
+                    history entry, no variance update, no free certainty.</p>
+                <pre><span class="cm">// Activity-gated certainty update</span>
+<span class="kw">if</span> (weight &gt;= <span class="fn">0.10</span>) {
+    <span class="cm">// Driver was meaningfully active</span>
+    certaintyResult = <span class="fn">updateCertainty</span>(currentCert, perDriverError, history);
+} <span class="kw">else</span> {
+    <span class="cm">// Driver was inactive — skip entirely</span>
+    newCertainty = currentCertainty;
+}</pre>
+                <p>This is the epistemic stance the system enforces everywhere: certainty has to be earned from
+                    consistent evidence under varying load, not accumulated from quiet periods. It&rsquo;s also
+                    what makes the grid below honest about where the system has signal and where it doesn&rsquo;t.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="block" id="grid">
+        <div class="container">
+            <div class="eyebrow">Distributed error signals</div>
+            <h3 class="section-title">GRACE-FO is one. Live LEO sats produce them everywhere they fly.</h3>
+            <p class="section-lede">
+                Solid cells are voxels lit up by GRACE-FO&rsquo;s drag observations — high-cadence error
+                signal from one satellite. Outlined cells are altitude / latitude / local-time bins where
+                a partner satellite, computing the same kind of drag residual from its onboard GPS, would
+                extend that certainty.
+            </p>
+
+            <div class="ask-callout">
+                <strong>Looking for satellite partners.</strong> Modern LEO satellites already compute
+                drag residuals from onboard GPS for navigation — functionally the same signal GRACE-FO
+                produces with its accelerometer. Sharing that signal (no telemetry, no proprietary
+                orbital elements — just GPS-derived drag residuals) would extend GRACE-FO-level
+                certainty across every altitude and latitude band your fleet flies. Get in touch:
+                <a href="mailto:heidi@nervousmachine.com">heidi@nervousmachine.com</a>.
+            </div>
+
+            <div class="grid-card">
+                <div class="legend-row">
+                    <div class="local-time-tabs">
+                        <div class="lt-tab active" data-lt="dawn">Dawn (03–09)</div>
+                        <div class="lt-tab" data-lt="noon">Noon (09–15)</div>
+                        <div class="lt-tab" data-lt="dusk">Dusk (15–21)</div>
+                        <div class="lt-tab" data-lt="midnight">Midnight (21–03)</div>
+                    </div>
+                </div>
+                <div class="voxel-grid-container">
+                    <div class="voxel-y-labels">
+                        <span>Polar N (60–90°)</span>
+                        <span>Mid-Lat N (30–60°)</span>
+                        <span>Tropical N (0–30°)</span>
+                        <span>Tropical S (0–30°)</span>
+                        <span>Mid-Lat S (30–60°)</span>
+                        <span>Polar S (60–90°)</span>
+                    </div>
+                    <div class="voxel-grid" id="voxel-grid"></div>
+                </div>
+                <div class="altitude-labels">
+                    <span class="gracefo">460</span>
+                    <span>525</span>
+                    <span>550</span>
+                    <span>575</span>
+                    <span>600</span>
+                    <span>650</span>
+                    <span>700</span>
+                    <span>850 km</span>
+                </div>
+                <div class="legend">
+                    <div class="legend-item">
+                        <div class="legend-color"
+                            style="background: transparent; border: 1px dashed rgba(255,255,255,0.3);"></div>
+                        Awaiting partner sat
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: #7b2ff7;"></div> 0.35–0.50
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: #00d4ff;"></div> 0.50–0.70
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: #00d464;"></div> &gt; 0.90
+                    </div>
+                    <div class="legend-item"><span
+                            style="font-size: 7px; background: rgba(0,212,255,0.3); color: #00d4ff; padding: 2px 4px; border-radius: 2px; letter-spacing: 0.5px;">SAT</span>
+                        GRACE-FO source</div>
+                </div>
+                <div class="grid-caption">
+                    Every dashed cell is a satellite-shaped hole in the map. The signal that fills it
+                    isn&rsquo;t telemetry or proprietary state — it&rsquo;s the drag residual a sat&rsquo;s
+                    GPS already computes for navigation. One satellite lit up its row. A contributing fleet
+                    fills the grid wherever it flies.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="block" id="results">
+        <div class="container">
+            <div class="eyebrow">From one sensor to a fleet</div>
+            <h3 class="section-title">Every active LEO satellite is already a thermospheric sensor.</h3>
+            <div class="results-grid">
+                <div>
+                    <table class="drivers">
+                        <thead>
+                            <tr>
+                                <th>Driver</th>
+                                <th class="num">Z<sub>TLE</sub></th>
+                                <th class="num">Z<sub>GRACE-FO</sub></th>
+                                <th class="num">&Delta;</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><b>AE index</b><br><span style="color: var(--muted); font-size: 0.8rem;">auroral
+                                        electrojet · Joule heating</span></td>
+                                <td class="num cold">0.389</td>
+                                <td class="num hot">0.949</td>
+                                <td class="num delta">+0.560</td>
+                            </tr>
+                            <tr>
+                                <td><b>Dst</b><br><span style="color: var(--muted); font-size: 0.8rem;">ring current
+                                        intensity</span></td>
+                                <td class="num cold">0.490</td>
+                                <td class="num hot">0.940</td>
+                                <td class="num delta">+0.450</td>
+                            </tr>
+                            <tr>
+                                <td><b>Solar wind density</b><br><span
+                                        style="color: var(--muted); font-size: 0.8rem;">proton flux</span></td>
+                                <td class="num cold">0.196</td>
+                                <td class="num hot">0.937</td>
+                                <td class="num delta">+0.741</td>
+                            </tr>
+                            <tr>
+                                <td><b>IMF B<sub>z</sub></b><br><span
+                                        style="color: var(--muted); font-size: 0.8rem;">reconnection trigger</span></td>
+                                <td class="num cold">0.450</td>
+                                <td class="num hot">0.912</td>
+                                <td class="num delta">+0.462</td>
+                            </tr>
+                            <tr>
+                                <td><b>Solar wind speed</b><br><span
+                                        style="color: var(--muted); font-size: 0.8rem;">boundary condition</span></td>
+                                <td class="num cold">0.132</td>
+                                <td class="num hot">0.854</td>
+                                <td class="num delta">+0.722</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="results-aside">
+                    <p class="pull">
+                        The signal that lit up GRACE-FO&rsquo;s corner of the grid is already being computed
+                        onboard every LEO sat with GPS — for navigation, not for thermospheric
+                        characterization. It&rsquo;s just not being aggregated.
+                    </p>
+                    <p>
+                        GRACE-FO carries a precision accelerometer that measures non-gravitational forces
+                        directly — drag at 10-second cadence, hourly-averaged into 89,861 observations across
+                        24 voxels at 460–510 km. That single high-cadence stream pulled every driver out of
+                        the TLE noise floor: <strong>97 of 104 edges cleared 0.91 certainty.</strong>
+                    </p>
+                    <p>
+                        Modern LEO spacecraft compute continuous GPS-based orbit solutions for navigation.
+                        The drag residuals — predicted vs. observed position — encode atmospheric density at
+                        minute-level cadence. <em>Functionally the same signal</em> the engine learned from
+                        on GRACE-FO, already being produced by every active satellite in LEO. The data exists.
+                        It&rsquo;s just sitting in flight-dynamics logs.
+                    </p>
+                    <p style="color: var(--text);">
+                        <strong>One sensor lit up 24 voxels. A contributing fleet would light up the grid
+                            wherever satellites fly</strong> — across altitude bands, latitude sectors, and
+                        local-time bins no single mission could ever cover. The pipeline is proven; the
+                        architecture is built. What&rsquo;s missing is operators contributing what their
+                        onboard GPS already computes. Distributed sensors, already in orbit, already
+                        underutilized.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="block" id="roadmap">
+        <div class="container">
+            <div class="eyebrow">Validation &amp; roadmap</div>
+            <h3 class="section-title">Three phases. Two complete. One open.</h3>
+            <p class="section-lede">
+                The pipeline was built and validated against operational baselines before the bar was
+                raised internally to require per-edge response lag and activity-gated certainty. Each
+                phase taught the next.
+            </p>
+            <div class="three-up">
+                <div class="pillar phase">
+                    <div class="phase-row">
+                        <span class="phase-num">Phase 1</span>
+                        <span class="phase-status complete">Complete</span>
+                    </div>
+                    <h4>Pipeline &amp; initial certainty</h4>
+                    <p>
+                        Built and validated the dissipative learning pipeline against TLE-derived
+                        density: 156 voxels at 525–850 km, 726 validated causal edges from 49 debris
+                        objects. <strong style="color: var(--text);">16% MAPE vs 85% for JB2008.</strong>
+                        Every voxel converged to meaningful certainty under daily cadence. The
+                        architecture worked. <em>Then we raised the bar.</em>
+                    </p>
+                </div>
+                <div class="pillar phase">
+                    <div class="phase-row">
+                        <span class="phase-num">Phase 2</span>
+                        <span class="phase-status complete">Complete</span>
+                    </div>
+                    <h4>Earned certainty under a stricter bar</h4>
+                    <p>
+                        Added per-edge response lag, activity-gated certainty (no free credit during
+                        quiet periods), and quiet-time baselines. The stricter standard exposed daily
+                        cadence as the real ceiling. GRACE-FO&rsquo;s 89,861 hourly observations cleared
+                        it: <strong style="color: var(--text);">97 of 104 edges above 0.80,</strong>
+                        all five drivers above 0.85. Same engine; the cadence was always the variable.
+                    </p>
+                </div>
+                <div class="pillar phase">
+                    <div class="phase-row">
+                        <span class="phase-num">Phase 3</span>
+                        <span class="phase-status open">Open</span>
+                    </div>
+                    <h4>First operator pilot</h4>
+                    <p>
+                        Ingest GPS-derived drag residuals from a partner constellation. Produce
+                        per-driver causal nowcasts for the operator&rsquo;s corridors. Validate against
+                        their flight-dynamics ground truth. One satellite lit up 24 voxels; the first
+                        partner extends the grid wherever their fleet flies.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="block" id="read">
+        <div class="container">
+            <div class="eyebrow">Read more</div>
+            <h3 class="section-title">The thinking behind the system.</h3>
+            <p class="section-lede">
+                Two essays from the Nervous Machine Substack frame the epistemic core of this work — why
+                uncertainty is a first-class citizen, and what high-cadence data unlocks for causal learning.
+            </p>
+            <div class="reading-list">
+                <a class="read-card" href="https://nervousmachine.substack.com/p/curiosity-as-math-how-uncertainty">
+                    <div class="src">Substack · Nervous Machine</div>
+                    <div class="title">Curiosity as Math: How Uncertainty Drives Learning</div>
+                    <div class="desc">Why a learning system should be aggressive where it&rsquo;s ignorant and
+                        conservative where it&rsquo;s confident — and what that looks like as a closed-form learning
+                        rate.</div>
+                </a>
+                <a class="read-card" href="https://nervousmachine.substack.com/p/18000-reasons-for-causal-learning">
+                    <div class="src">Substack · Nervous Machine</div>
+                    <div class="title">18,000 Reasons for Causal Learning</div>
+                    <div class="desc">What 89,861 hours of GRACE-FO accelerometer data taught the engine about the
+                        thermosphere — and why per-driver attribution beats a scalar prediction.</div>
+                </a>
+                <a class="read-card" href="https://nervousmachine.substack.com">
+                    <div class="src">Substack · Index</div>
+                    <div class="title">All Nervous Machine writing</div>
+                    <div class="desc">Essays on causal learning, edge intelligence, and uncertainty quantification.
+                    </div>
+                </a>
+                <a class="read-card" href="https://nervousmachine.com">
+                    <div class="src">Web · nervousmachine.com</div>
+                    <div class="title">Nervous Machine</div>
+                    <div class="desc">The framework behind Space Atlas — autonomous causal discovery and physics
+                        learning at the edge.</div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div>Space Atlas &middot; Built with the <a href="https://nervousmachine.com">Nervous Machine</a> framework
+            </div>
+            <div class="links">
+                <a href="mailto:heidi@nervousmachine.com">heidi@nervousmachine.com</a>
+                <a href="https://nervousmachine.substack.com">Substack</a>
+                <a href="/poster_v7.pdf">Poster</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const API_BASE = '/api';
+
+        const LATITUDE_BINS = ['60-90N', '30-60N', '0-30N', '0-30S', '30-60S', '60-90S'];
+        const ALTITUDE_BINS = ['460-510', '525-550', '550-575', '575-600', '600-650', '650-700', '700-800', '800-850'];
+        let currentLocalTime = 'dawn';
+        let allVoxelData = [];
+
+        // GRACE-FO altitude bin — every other altitude starts as an "awaiting partner" outline
+        const GRACEFO_ALT = '460-510';
+        function isGraceFoCell(alt) { return alt === GRACEFO_ALT; }
+
+        function getCertaintyColor(c) {
+            if (c < 0.35) return '#333';
+            if (c < 0.50) return '#7b2ff7';
+            if (c < 0.70) return '#00d4ff';
+            return '#00d464';
+        }
+
+        function initVoxelGrid() {
+            const grid = document.getElementById('voxel-grid');
+            grid.innerHTML = '';
+            for (let latIdx = 0; latIdx < LATITUDE_BINS.length; latIdx++) {
+                for (let altIdx = 0; altIdx < ALTITUDE_BINS.length; altIdx++) {
+                    const lat = LATITUDE_BINS[latIdx];
+                    const alt = ALTITUDE_BINS[altIdx];
+                    const voxel = document.createElement('div');
+                    voxel.className = 'voxel';
+                    voxel.id = `voxel-${lat}-${alt}`;
+                    const tip = document.createElement('div');
+                    tip.className = 'voxel-tooltip';
+                    if (isGraceFoCell(alt)) {
+                        voxel.style.backgroundColor = '#333';
+                        tip.innerHTML = `<strong>${lat}</strong><br>Alt: ${alt} km<br>GRACE-FO · loading…`;
+                    } else {
+                        voxel.classList.add('outline');
+                        tip.innerHTML = `<strong>Awaiting a partner satellite</strong><br>Lat: ${lat}<br>Alt: ${alt} km<br>Could be filled by GPS drag residuals from a sat at this altitude.`;
+                    }
+                    voxel.appendChild(tip);
+                    grid.appendChild(voxel);
+                }
+            }
+            document.querySelectorAll('.lt-tab').forEach(tab => {
+                tab.addEventListener('click', () => {
+                    document.querySelectorAll('.lt-tab').forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                    currentLocalTime = tab.dataset.lt;
+                    if (allVoxelData.length) updateVoxelGrid(allVoxelData);
+                });
+            });
+        }
+
+        async function fetchData() {
+            try {
+                const res = await fetch(`${API_BASE}/status`);
+                if (!res.ok) throw new Error('API not available');
+                const data = await res.json();
+                if (data.voxel_grid?.grid) updateVoxelGrid(data.voxel_grid.grid);
+            } catch (e) {
+                console.log('API error:', e.message);
+            }
+        }
+
+        function updateVoxelGrid(gridData) {
+            allVoxelData = gridData;
+            const filtered = gridData.filter(c => c.local_time_bin === currentLocalTime);
+            for (const cell of filtered) {
+                const voxel = document.getElementById(`voxel-${cell.latitude_bin}-${cell.altitude_bin}`);
+                if (!voxel) continue;
+
+                // Non-GRACE-FO cells: stay outlined as "awaiting partner data" — the unmet potential
+                if (!isGraceFoCell(cell.altitude_bin)) {
+                    const tip = voxel.querySelector('.voxel-tooltip');
+                    if (tip) {
+                        tip.innerHTML = `<strong>Awaiting a partner satellite</strong><br>Lat: ${cell.latitude_bin}<br>Alt: ${cell.altitude_bin} km<br>LT: ${cell.local_time_bin}<br>A sat with onboard GPS at this altitude could fill this cell.`;
+                    }
+                    continue;
+                }
+
+                // GRACE-FO cells: solid color from earned certainty
+                voxel.classList.remove('outline');
+                const certainty = cell.avg_certainty || 0.3;
+                voxel.style.backgroundColor = getCertaintyColor(certainty);
+                voxel.style.opacity = '1';
+                voxel.style.boxShadow = 'none';
+                voxel.style.border = 'none';
+
+                let badge = voxel.querySelector('.source-badge');
+                if (!badge) {
+                    badge = document.createElement('div');
+                    badge.className = 'source-badge';
+                    voxel.appendChild(badge);
+                }
+                badge.textContent = 'SAT';
+                badge.title = 'GRACE-FO accelerometer';
+
+                const tip = voxel.querySelector('.voxel-tooltip');
+                if (tip) {
+                    tip.innerHTML = `
+                        <strong>${cell.latitude_bin}</strong><br>
+                        Alt: ${cell.altitude_bin} km · LT: ${cell.local_time_bin}<br>
+                        Certainty: ${certainty.toFixed(3)}
+                        ${cell.strongest_driver ? `<br>Top driver: ${cell.strongest_driver.driver}` : ''}
+                        <br><em style="color: #00d4ff;">GRACE-FO accelerometer</em>
+                        <br>${(cell.observation_count || 0).toLocaleString()} obs
+                    `;
+                }
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            initVoxelGrid();
+            fetchData();
+            setInterval(fetchData, 30000);
+        });
+    </script>
+
+</body>
+
+</html>

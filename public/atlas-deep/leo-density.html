@@ -1,0 +1,44 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1"><title>LEO Density — the drag grid — Atlas of Useful Space</title><style>
+:root{color-scheme:dark}body{margin:0;background:#0b0e14;color:#dfe6f0;font:16px/1.6 -apple-system,'Segoe UI',Roboto,sans-serif}
+.wrap{max-width:820px;margin:0 auto;padding:32px 20px 64px}a{color:#8ab4ff}
+h1{font-size:26px;margin:8px 0 4px}h2{font-size:18px;margin:28px 0 8px;color:#f5a623}
+.k{color:#0fbf6b;font-weight:700}.m{color:#a78bfa;font-weight:700}.g{color:#f5a623;font-weight:700}
+.card{background:#121826;border:1px solid #232c3f;border-radius:10px;padding:14px 16px;margin:10px 0}
+.small{color:#8b96a8;font-size:13.5px}table{border-collapse:collapse;width:100%;font-size:14px}
+td,th{border-bottom:1px solid #232c3f;padding:6px 8px;text-align:left;vertical-align:top}
+.back{font-size:14px}</style></head>
+<body><div class="wrap"><p class="back"><a href="../">← Atlas of Useful Space</a></p>
+<h1>LEO Density — the drag grid</h1>
+<p><b>The question:</b> when the Sun acts up, the upper atmosphere swells and satellites feel more drag.
+Which solar and geomagnetic drivers move the air in <i>each specific place</i> — and how sure are we?</p>
+<h2>What we measured</h2>
+<p>Air-density response through 40 storms (2021–2025), read from the accelerometers and GPS navigation
+residuals of two independent satellite fleets that never shared a model: GRACE-FO (460–510 km) and
+ESA Swarm (420–460 and 510–550 km) — 24 million Swarm measurements across 48 cells, learned one storm
+at a time with the answer hidden (leave-one-storm-out).</p>
+<h2>What we found</h2>
+<div class="card"><span class="k">CERTIFIED (61 sectors):</span> in a third of the storm sectors we can name the
+drivers that move the air, with most of that learned weight confirmed by repeated correct prediction —
+and a deliberately scrambled decoy signal correctly earns nothing there.</div>
+<div class="card"><span class="m">The sky-map replicates:</span> where the learner beats simple references is not
+random — dawn and midnight sectors win, noon does not — and the same pattern appeared on the second fleet,
+which the model had never seen. Where the learner is <i>not</i> confident, its abstentions correctly flagged its
+own worst cells before they happened.</div>
+<div class="card"><span class="g">What we do not claim:</span> a head-to-head win over the standard density model
+(MSIS) once that model gets the same local calibration any operator applies. We tested that claim ourselves and
+it did not survive — so it is not on the map. What is ours is the driver attribution and the where-the-reference-is-blind map.</div>
+<h2>Open questions</h2>
+<table><tr><th>gap</th><th>what closes it</th></tr>
+<tr><td>11 cells measure fine but trip the decoy alarm — something in the data can fool a learner there</td><td>resolving the data-quality question in those cells; until then, no confidence claimed</td></tr>
+<tr><td>120 cells have no source satellite at all (550–850 km especially)</td><td>the drag residual any operating satellite already computes for navigation — not telemetry, not proprietary state</td></tr>
+<tr><td>severe-storm hours are rare — storm confidence grows in calendar time</td><td>the next solar-cycle declining-phase season, already scheduled</td></tr></table>
+<h2>Program history</h2><p class="small">This grid grew out of the original LEO density campaign (GRACE-FO era) — the poster, the method essays, and the first roadmap are preserved at <a href="../leo-program.html">the LEO program page</a>.</p>
+<h2>Data sources</h2><p class="small">GRACE-FO accelerometer-derived densities (TU Delft TOLEOS) ·
+ESA Swarm A/B/C · NASA OMNI drivers · storm-fold definitions and every threshold pre-registered.</p>
+<h2>Receipts</h2><p class="small">Every claim on this page comes from a pre-registered analysis: the hypothesis
+and its pass/fail rule were committed to a ledger <i>before</i> the data was touched, results were reproduced
+bit-for-bit, decoy signals ran as tripwires, and refused hypotheses stay on record. The complete gap register —
+data sources, refused hypotheses, and open staked predictions — is published alongside this atlas
+(<a href="method.html">how to read it</a>).</p>
+</div></body></html>

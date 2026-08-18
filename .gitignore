@@ -1,0 +1,7 @@
+# This repository publishes only the public Atlas site.
+# Framework code, pipelines, and analysis runs live in other repositories.
+/*
+!/public
+!/.gitignore
+!/README.md
+!/vercel.json

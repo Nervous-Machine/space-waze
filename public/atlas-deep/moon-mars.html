@@ -1,0 +1,54 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1"><title>Cislunar · Moon · Transit · Mars — Atlas of Useful Space</title><style>
+:root{color-scheme:dark}body{margin:0;background:#0b0e14;color:#dfe6f0;font:16px/1.6 -apple-system,'Segoe UI',Roboto,sans-serif}
+.wrap{max-width:820px;margin:0 auto;padding:32px 20px 64px}a{color:#8ab4ff}
+h1{font-size:26px;margin:8px 0 4px}h2{font-size:18px;margin:28px 0 8px;color:#f5a623}
+.k{color:#0fbf6b;font-weight:700}.m{color:#a78bfa;font-weight:700}.g{color:#f5a623;font-weight:700}
+.card{background:#121826;border:1px solid #232c3f;border-radius:10px;padding:14px 16px;margin:10px 0}
+.small{color:#8b96a8;font-size:13.5px}table{border-collapse:collapse;width:100%;font-size:14px}
+td,th{border-bottom:1px solid #232c3f;padding:6px 8px;text-align:left;vertical-align:top}
+.back{font-size:14px}</style></head>
+<body><div class="wrap"><p class="back"><a href="../">← Atlas of Useful Space</a></p>
+<h1>Cislunar · Moon · Transit · Mars</h1>
+<p><b>The question:</b> beyond the magnetosphere, radiation is the constraint. What do we actually know about
+dose at the Moon, on the way to Mars, and at Mars — and what is still guesswork?</p>
+<h2>The Moon (17 years of measurements)</h2>
+<div class="card"><span class="k">Earth's alerts are not enough at the Moon:</span> we found solar-particle events
+that produced order-of-magnitude dose responses at the Moon while Earth's official catalogs stayed silent —
+missed by threshold (too small at Earth), by latency (arrived at the Moon first), and by curation (never entered
+the record). Each was confirmed by an independent spacecraft in lunar orbit. If you operate near the Moon,
+you need lunar-vicinity monitoring, not just Earth-side alerts.</div>
+<div class="card"><span class="k">This solar cycle is different:</span> counting the same way across 17 years, the
+quiet-day radiation bursts that seeded those discoveries are overwhelmingly a <i>current-cycle</i> phenomenon —
+44 of 60 burst-days live in 2023–2025, and 2012 (a loud year by Earth standards) has zero. Models tuned on
+past cycles will miss this Sun.</div>
+<div class="card"><span class="m">The storm/quiet split holds:</span> one structural change — letting storm hours
+and quiet hours carry separate weights — fixed a 18× storm-hour error and stayed fixed across the entire archive.
+The magnetotail's effect on dose still behaves opposite to textbook expectation; that stays an open question,
+published, not hidden.</div>
+<h2>Mars (two years, measured on the ground)</h2>
+<div class="card"><span class="k">The atmosphere filters the flood:</span> solar-particle events <i>suppress</i>
+surface dose at Mars — the same direction in both measured years — and in one season we certified the effect as
+essentially zero, firmly. (A confident zero is real knowledge: it bounds the hazard.) The same solar events
+push dose <i>up</i> at the Moon: same Sun, opposite signs, ordered by shielding. One rule, planetary bodies as
+its coordinates.</div>
+<div class="card"><span class="k">Two uncataloged storm arrivals at Mars:</span> our residuals flagged them, and
+upstream plasma data from an orbiting spacecraft confirmed both, to the day — arrivals no official catalog lists.</div>
+<div class="card"><span class="g">The best open mystery:</span> a seasonal dose signal at Gale Crater appears in
+<i>both</i> measured years and has survived every explanation we tested — it is not calibration, not daily storm
+bookkeeping, not maskable. It waits on a dust-opacity data release or a Mars upstream monitor; our prediction
+for the ESCAPADE mission (~2028) is already staked in advance.</div>
+<h2>The two cheapest big holes</h2>
+<table><tr><th>gap</th><th>what closes it</th></tr>
+<tr><td><b>Earth→Mars corridor:</b> crew transit dose has essentially never been continuously measured — 4 one-way snapshots in 25 years</td><td>a small hosted dosimeter on any Mars-bound rideshare, hourly, one solar rotation; analysis pre-committed on our side</td></tr>
+<tr><td><b>Lunar surface:</b> the measurements exist (the LND instrument on the farside) but archive access is blocked</td><td>one data-access agreement — and it matters twice: 17 years of lunar-orbit data hold only 46 magnetotail-storm days, so a farside stream is the only way to close that cell</td></tr></table>
+<h2>Data sources</h2><p class="small">LRO/CRaTER dose rates (UNH, full mission 2009–2026) · MSL/RAD surface dose
+(NASA PDS, two eras) · MAVEN SWIA/MAG upstream plasma · GOES proton/electron feeds (three instrument eras) ·
+NASA OMNI · NASA DONKI arrival catalogs. Every fetch sha-pinned; the one gap in the archives themselves
+(an 8-month proton-coverage hole in 2020 between satellite generations) is documented in the register.</p>
+<h2>Receipts</h2><p class="small">Every claim on this page comes from a pre-registered analysis: the hypothesis
+and its pass/fail rule were committed to a ledger <i>before</i> the data was touched, results were reproduced
+bit-for-bit, decoy signals ran as tripwires, and refused hypotheses stay on record. The complete gap register —
+data sources, refused hypotheses, and open staked predictions — is published alongside this atlas
+(<a href="method.html">how to read it</a>).</p>
+</div></body></html>
