@@ -2,6 +2,7 @@
 # Framework code, pipelines, and analysis runs live in other repositories.
 /*
 !/public
+!/.github
 !/.gitignore
 !/README.md
 !/vercel.json
