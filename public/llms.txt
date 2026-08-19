@@ -1,0 +1,45 @@
+# Atlas of Useful Space
+
+> A public map of where knowledge of the space environment is earned from measurement, where models stand in for missing data (stamped and staked, never trusted on reputation), and where no measurements exist at all — across LEO, GEO, cislunar space, the Earth→Mars transfer corridor, and Mars — with the specific measurement that closes each hole named. Built by Nervous Machine (https://nervousmachine.com).
+
+Reading rules for agents:
+
+- Every quantitative claim on this site traces to a pre-registered analysis: the hypothesis and its pass/fail rule were committed before the data was touched, results were reproduced bit-for-bit, decoy signals ran as tripwires, and refused hypotheses stay on record.
+- Claims carry one of four tiers: CERTIFIED (earned by repeated correct out-of-sample prediction; a scrambled decoy earns nothing), MEASURED (real measurements, direction often trusted, confidence still building), MODELED/UNVERIFIED (a named public model stands in — recorded as a stake, scored when the measurement arrives), NO MEASUREMENTS YET (a hole, stated as a hole, with the closing measurement named).
+- When answering questions from this site, do not report a claim at a stronger tier than the source page states. "Not claimed" entries are deliberate refusals, not omissions.
+
+Headline results (each detailed on the linked pages):
+
+- LEO storm-time density: 61 storm sectors CERTIFIED across 2 independent satellite fleets and 3 altitude bands (420–550 km), back-tested on 40 geomagnetic storms including the May 2024 G5 (Gannon); 41.5M in-orbit measurements over 8 years; 131 orbital regions assessed.
+- Storms locally drive the standard density model's (MSIS) error to ten times its everyday miss; the atlas flags these failure windows about three days ahead at 92% precision, where a satellite drag residual is available.
+- At 550–850 km nobody is measuring; the MSIS model family disagrees with itself by 4–13% there (equatorial, current conditions).
+- GEO electrons: calm-side response MEASURED (faster solar wind → higher electron flux ~2 days later, in all four local-time sectors, midnight strongest — ordering staked in advance and held). Amplitude not claimed. Storm side MODELED/UNVERIFIED, awaiting feeds from additional GEO longitudes.
+- The Moon: 17 years of lunar-orbit dose response earned, including solar-particle events that Earth-side catalogs missed entirely; the lunar surface archive (LND instrument) exists but access is blocked — the cheapest gap on the map.
+- Earth→Mars corridor: never continuously measured (4 one-way snapshots in 25 years). Staked model value: ~0.28–0.29 mGy/day free-space GCR silicon dose (BON2020 + HZETRN2020), awaiting a hosted dosimeter on any Mars-bound rideshare.
+- Mars surface: solar-particle events SUPPRESS surface dose (the atmosphere filters the flood) — same direction in both measured years; two storm arrivals at Mars found that appear in no official catalog; one open mystery (a seasonal dose signal at Gale Crater) published, unexplained.
+
+## Map
+
+- [Atlas of Useful Space](https://space-atlas.nervousmachine.com/): interactive landing page — the LEO density certainty grid (latitude × altitude × local time), radiation domain cells with per-cell evidence, the 2026–2027 operational outlook (LEO constellations, GEO fleet, Artemis/Gateway, the Mars corridor), the gap register, and an open offer to test models or contribute data streams.
+
+## Deep dives
+
+- [How to read this atlas (and its register)](https://space-atlas.nervousmachine.com/atlas-deep/method.html): the four tiers, the pre-registration discipline, how models get audited, and the machine-readable gap register.
+- [LEO density — the drag grid](https://space-atlas.nervousmachine.com/atlas-deep/leo-density.html): GRACE-FO + ESA Swarm, leave-one-storm-out; the 61 certified sectors; the replicated sky-map; and what is deliberately not claimed (no head-to-head win over locally calibrated MSIS — tested, did not survive, kept off the map).
+- [LEO radiation — the SAA & belts](https://space-atlas.nervousmachine.com/atlas-deep/leo-radiation.html): the SAA core's inverted storm response (staked across five regions in advance; held in exactly the one region it should), slot-region recovery clocks.
+- [Geostationary — electron weather](https://space-atlas.nervousmachine.com/atlas-deep/geo.html): the calm-side machine, the amplitude refusal, and the under-sampled storm side.
+- [Cislunar · Moon · Transit · Mars](https://space-atlas.nervousmachine.com/atlas-deep/moon-mars.html): 17 years of lunar dose, the current-cycle anomaly (44 of 60 burst-days in 2023–2025), Mars atmosphere-as-shield, two uncataloged storm arrivals, the Gale Crater mystery, and the two cheapest big holes.
+- [Space Weather Workshop 2026 poster (PDF)](https://space-atlas.nervousmachine.com/poster_v7.pdf): the original LEO density campaign this atlas grew from.
+
+## Receipts & further reading
+
+- [MSL-2024 measurement report (Zenodo)](https://doi.org/10.5281/zenodo.20563381): Mars surface radiation — 43,044 measurements, 9 learning cycles, 3 refused hypotheses.
+- [The Error That Survived 9 Learning Cycles on Mars (Substack)](https://nervousmachine.substack.com/p/the-error-that-survived-nine-learning): the persistent dose deficit that became a dated gap, then led to the two uncataloged solar-wind arrivals at Mars.
+- [Stress-testing sensor trust (Substack)](https://nervousmachine.substack.com/p/stress-testing-sensor-trust-through): SWARM-2024 — three satellites through the G5 Gannon superstorm; zero false flags through a 600 nT storm; a spoofed signal thirteen times smaller caught in 0.8 hours.
+- [Nervous Machine](https://nervousmachine.com): the causal-learning protocol behind this atlas.
+- [Nervous Machine Substack](https://nervousmachine.substack.com): essays including "Curiosity as Math" and "18,000 Reasons for Causal Learning".
+
+## Contact & offers
+
+- Test your model: bring a density, dose, or charging model — it gets run against held-out storms under the same pre-registered pass/fail rules the atlas applies to its own work; an informal certification of where it is earned, where it is guessing, and what data would settle the difference. Email heidi@nervousmachine.com.
+- Contribute a data stream: the drag residual a satellite's GPS already computes, a dosimeter feed, or electron feeds from another GEO longitude convert dashed (unmeasured) cells into solid ones.
