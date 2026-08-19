@@ -1,34 +1,124 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1"><title>LEO Radiation — SAA & belts — Atlas of Useful Space</title><style>
-:root{color-scheme:dark}body{margin:0;background:#0b0e14;color:#dfe6f0;font:16px/1.6 -apple-system,'Segoe UI',Roboto,sans-serif}
-.wrap{max-width:820px;margin:0 auto;padding:32px 20px 64px}a{color:#8ab4ff}
-h1{font-size:26px;margin:8px 0 4px}h2{font-size:18px;margin:28px 0 8px;color:#f5a623}
-.k{color:#0fbf6b;font-weight:700}.m{color:#a78bfa;font-weight:700}.g{color:#f5a623;font-weight:700}
-.card{background:#121826;border:1px solid #232c3f;border-radius:10px;padding:14px 16px;margin:10px 0}
-.small{color:#8b96a8;font-size:13.5px}table{border-collapse:collapse;width:100%;font-size:14px}
-td,th{border-bottom:1px solid #232c3f;padding:6px 8px;text-align:left;vertical-align:top}
-.back{font-size:14px}</style></head>
-<body><div class="wrap"><p class="back"><a href="../">← Atlas of Useful Space</a></p>
-<h1>LEO Radiation — SAA & belts</h1>
-<p><b>The question:</b> in low orbit, radiation dose depends on where you are — the South Atlantic Anomaly,
-the slot, the belt edges. What does a storm actually do to dose in each region?</p>
-<h2>What we found</h2>
-<div class="card"><span class="m">The SAA core is backwards, on schedule:</span> everywhere else, storms push dose
-up. In the SAA core it <i>drops first</i>, then recovers. We staked that prediction across five regions in advance —
-and it held in exactly the one region where it should, and failed everywhere else. A prediction that is right in
-exactly the right place is worth more than one that is vaguely right everywhere.</div>
-<div class="card"><span class="m">Recovery clocks:</span> the post-storm dose-settling profile is measured in the slot
-region — the "how long until it calms down" number planners ask for. Direction earned; exact numbers still building
-confidence.</div>
-<h2>Open questions</h2>
-<table><tr><th>gap</th><th>what closes it</th></tr>
-<tr><td>the polar inner-belt boundary has never been sampled from our source orbit</td><td>a hosted sensor or a dataset from a different orbit</td></tr>
-<tr><td>confidence (as opposed to direction) is still building across all cells</td><td>more storm seasons; the confidence-building question itself is a named, open line of work</td></tr></table>
-<h2>Data sources</h2><p class="small">POES/MetOp energetic-particle detectors (NOAA), storm windows from
-NASA OMNI/Dst — all fetches sha-pinned, all thresholds pre-registered.</p>
-<h2>Receipts</h2><p class="small">Every claim on this page comes from a pre-registered analysis: the hypothesis
-and its pass/fail rule were committed to a ledger <i>before</i> the data was touched, results were reproduced
-bit-for-bit, decoy signals ran as tripwires, and refused hypotheses stay on record. The complete gap register —
-data sources, refused hypotheses, and open staked predictions — is published alongside this atlas
-(<a href="method.html">how to read it</a>).</p>
-</div></body></html>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>LEO Radiation — SAA &amp; belts — Atlas of Useful Space</title>
+    <link rel="stylesheet" href="deep.css">
+</head>
+
+<body>
+
+    <div class="topbar">
+        <div class="container">
+            <span><strong>Atlas of Useful Space</strong> · deep dive</span>
+            <span><a href="../">&larr; Back to the atlas</a></span>
+        </div>
+    </div>
+
+    <header class="site">
+        <div class="container">
+            <div class="brand">
+                <a class="brand-link" href="../">ATLAS OF USEFUL SPACE</a>
+                <div class="by">by <a href="https://nervousmachine.com">Nervous Machine</a></div>
+            </div>
+            <nav class="primary">
+                <a href="leo-density.html">LEO density</a>
+                <a class="here" href="leo-radiation.html">LEO radiation</a>
+                <a href="geo.html">GEO</a>
+                <a href="moon-mars.html">Moon &amp; Mars</a>
+                <a href="method.html">Method</a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <div class="eyebrow">Deep dive · LEO radiation · SAA to polar</div>
+            <h2>LEO radiation — <span class="accent">the SAA &amp; belts.</span></h2>
+            <p class="lede">
+                <b>The question:</b> in low orbit, radiation dose depends on where you are — the South Atlantic
+                Anomaly, the slot, the belt edges. What does a storm actually do to dose in each region?
+            </p>
+        </div>
+    </section>
+
+    <section class="block">
+        <div class="container">
+            <h3 class="section-title">What we found.</h3>
+            <div class="card">
+                <span class="tier t-meas">Measured</span>
+                <h4>The SAA core is backwards, on schedule.</h4>
+                <p>Everywhere else, storms push dose up. In the SAA core it <i>drops first</i>, then recovers.
+                    We staked that prediction across five regions in advance — and it held in exactly the one
+                    region where it should, and failed everywhere else. A prediction that is right in exactly
+                    the right place is worth more than one that is vaguely right everywhere.</p>
+            </div>
+            <div class="card">
+                <span class="tier t-meas">Measured</span>
+                <h4>Recovery clocks.</h4>
+                <p>The post-storm dose-settling profile is measured in the slot region — the &ldquo;how long
+                    until it calms down&rdquo; number planners ask for. Direction earned; exact numbers still
+                    building confidence.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="block">
+        <div class="container">
+            <h3 class="section-title">Open questions.</h3>
+            <div class="table-scroll">
+                <table>
+                    <tr>
+                        <th>gap</th>
+                        <th>what closes it</th>
+                    </tr>
+                    <tr>
+                        <td>the polar inner-belt boundary has never been sampled from our source orbit</td>
+                        <td>a hosted sensor or a dataset from a different orbit</td>
+                    </tr>
+                    <tr>
+                        <td>confidence (as opposed to direction) is still building across all cells</td>
+                        <td>more storm seasons; the confidence-building question itself is a named, open line of
+                            work</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <section class="block">
+        <div class="container">
+            <h3 class="section-title">Data sources.</h3>
+            <p class="small">POES/MetOp energetic-particle detectors (NOAA), storm windows from NASA OMNI/Dst —
+                all fetches sha-pinned, all thresholds pre-registered.</p>
+        </div>
+    </section>
+
+    <section class="block">
+        <div class="container">
+            <h3 class="section-title">Receipts.</h3>
+            <p class="small">Every claim on this page comes from a pre-registered analysis: the hypothesis and
+                its pass/fail rule were committed to a ledger <i>before</i> the data was touched, results were
+                reproduced bit-for-bit, decoy signals ran as tripwires, and refused hypotheses stay on record.
+                The complete gap register — data sources, refused hypotheses, and open staked predictions — is
+                published alongside this atlas (<a href="method.html">how to read it</a>).</p>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div>Atlas of Useful Space &middot; Heidi Bennett &middot; <a
+                    href="https://nervousmachine.com">Nervous Machine</a></div>
+            <div class="links">
+                <a href="../">Atlas home</a>
+                <a href="method.html">How to read it</a>
+                <a href="mailto:heidi@nervousmachine.com">heidi@nervousmachine.com</a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+
+</html>

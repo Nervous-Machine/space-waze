@@ -1,32 +1,123 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1"><title>Geostationary — electron weather — Atlas of Useful Space</title><style>
-:root{color-scheme:dark}body{margin:0;background:#0b0e14;color:#dfe6f0;font:16px/1.6 -apple-system,'Segoe UI',Roboto,sans-serif}
-.wrap{max-width:820px;margin:0 auto;padding:32px 20px 64px}a{color:#8ab4ff}
-h1{font-size:26px;margin:8px 0 4px}h2{font-size:18px;margin:28px 0 8px;color:#f5a623}
-.k{color:#0fbf6b;font-weight:700}.m{color:#a78bfa;font-weight:700}.g{color:#f5a623;font-weight:700}
-.card{background:#121826;border:1px solid #232c3f;border-radius:10px;padding:14px 16px;margin:10px 0}
-.small{color:#8b96a8;font-size:13.5px}table{border-collapse:collapse;width:100%;font-size:14px}
-td,th{border-bottom:1px solid #232c3f;padding:6px 8px;text-align:left;vertical-align:top}
-.back{font-size:14px}</style></head>
-<body><div class="wrap"><p class="back"><a href="../">← Atlas of Useful Space</a></p>
-<h1>Geostationary — electron weather</h1>
-<p><b>The question:</b> at 36,000 km, "killer electrons" charge spacecraft surfaces. Can we learn what pumps
-them up, per local-time sector, well enough to plan around?</p>
-<h2>What we found</h2>
-<div class="card"><span class="m">The calm-side machine works:</span> faster solar wind reliably pumps electron flux
-about two days later, in all four local-time sectors — and the ordering (midnight sector strongest, noon weakest)
-came out exactly as we staked it in advance. That is the shape spacecraft-charging planning needs.</div>
-<div class="card"><span class="g">What we do not claim:</span> the amplitude. Direction and ordering are earned;
-the size of the response is not yet confirmed to our bar, and we say so rather than round up.</div>
-<h2>Open questions</h2>
-<table><tr><th>gap</th><th>what closes it</th></tr>
-<tr><td>the storm side is genuinely under-sampled: one satellite at one longitude sees each sector only ~6 storm-hours a day</td><td>electron feeds from additional GEO longitudes — any operator's monitor helps — or simply a longer window</td></tr>
-<tr><td>amplitude confidence on the calm side</td><td>a longer observing window under the same pre-registered rules</td></tr></table>
-<h2>Data sources</h2><p class="small">GOES relativistic-electron and magnetometer feeds (NOAA), solar-wind
-drivers from NASA OMNI/DSCOVR.</p>
-<h2>Receipts</h2><p class="small">Every claim on this page comes from a pre-registered analysis: the hypothesis
-and its pass/fail rule were committed to a ledger <i>before</i> the data was touched, results were reproduced
-bit-for-bit, decoy signals ran as tripwires, and refused hypotheses stay on record. The complete gap register —
-data sources, refused hypotheses, and open staked predictions — is published alongside this atlas
-(<a href="method.html">how to read it</a>).</p>
-</div></body></html>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Geostationary — electron weather — Atlas of Useful Space</title>
+    <link rel="stylesheet" href="deep.css">
+</head>
+
+<body>
+
+    <div class="topbar">
+        <div class="container">
+            <span><strong>Atlas of Useful Space</strong> · deep dive</span>
+            <span><a href="../">&larr; Back to the atlas</a></span>
+        </div>
+    </div>
+
+    <header class="site">
+        <div class="container">
+            <div class="brand">
+                <a class="brand-link" href="../">ATLAS OF USEFUL SPACE</a>
+                <div class="by">by <a href="https://nervousmachine.com">Nervous Machine</a></div>
+            </div>
+            <nav class="primary">
+                <a href="leo-density.html">LEO density</a>
+                <a href="leo-radiation.html">LEO radiation</a>
+                <a class="here" href="geo.html">GEO</a>
+                <a href="moon-mars.html">Moon &amp; Mars</a>
+                <a href="method.html">Method</a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <div class="eyebrow">Deep dive · Geostationary · 36,000 km</div>
+            <h2>Geostationary — <span class="accent">electron weather.</span></h2>
+            <p class="lede">
+                <b>The question:</b> at 36,000 km, &ldquo;killer electrons&rdquo; charge spacecraft surfaces.
+                Can we learn what pumps them up, per local-time sector, well enough to plan around?
+            </p>
+        </div>
+    </section>
+
+    <section class="block">
+        <div class="container">
+            <h3 class="section-title">What we found.</h3>
+            <div class="card">
+                <span class="tier t-meas">Measured</span>
+                <h4>The calm-side machine works.</h4>
+                <p>Faster solar wind reliably pumps electron flux about two days later, in all four local-time
+                    sectors — and the ordering (midnight sector strongest, noon weakest) came out exactly as we
+                    staked it in advance. That is the shape spacecraft-charging planning needs.</p>
+            </div>
+            <div class="card">
+                <span class="tier t-gap">Not claimed</span>
+                <h4>What we do not claim.</h4>
+                <p>The amplitude. Direction and ordering are earned; the size of the response is not yet
+                    confirmed to our bar, and we say so rather than round up.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="block">
+        <div class="container">
+            <h3 class="section-title">Open questions.</h3>
+            <div class="table-scroll">
+                <table>
+                    <tr>
+                        <th>gap</th>
+                        <th>what closes it</th>
+                    </tr>
+                    <tr>
+                        <td>the storm side is genuinely under-sampled: one satellite at one longitude sees each
+                            sector only ~6 storm-hours a day</td>
+                        <td>electron feeds from additional GEO longitudes — any operator&rsquo;s monitor helps —
+                            or simply a longer window</td>
+                    </tr>
+                    <tr>
+                        <td>amplitude confidence on the calm side</td>
+                        <td>a longer observing window under the same pre-registered rules</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <section class="block">
+        <div class="container">
+            <h3 class="section-title">Data sources.</h3>
+            <p class="small">GOES relativistic-electron and magnetometer feeds (NOAA), solar-wind drivers from
+                NASA OMNI/DSCOVR.</p>
+        </div>
+    </section>
+
+    <section class="block">
+        <div class="container">
+            <h3 class="section-title">Receipts.</h3>
+            <p class="small">Every claim on this page comes from a pre-registered analysis: the hypothesis and
+                its pass/fail rule were committed to a ledger <i>before</i> the data was touched, results were
+                reproduced bit-for-bit, decoy signals ran as tripwires, and refused hypotheses stay on record.
+                The complete gap register — data sources, refused hypotheses, and open staked predictions — is
+                published alongside this atlas (<a href="method.html">how to read it</a>).</p>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div>Atlas of Useful Space &middot; Heidi Bennett &middot; <a
+                    href="https://nervousmachine.com">Nervous Machine</a></div>
+            <div class="links">
+                <a href="../">Atlas home</a>
+                <a href="method.html">How to read it</a>
+                <a href="mailto:heidi@nervousmachine.com">heidi@nervousmachine.com</a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+
+</html>
