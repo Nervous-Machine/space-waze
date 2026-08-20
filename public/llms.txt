@@ -33,11 +33,13 @@ Headline results (each detailed on the linked pages):
 
 ## Receipts & further reading
 
+- [Causal learning across four space-environment regimes (Zenodo preprint)](https://doi.org/10.5281/zenodo.20563491): autonomous discovery of regime-dependent physics and a measurement-gap roadmap for mission autonomy — the four-regime study this atlas grew from.
 - [MSL-2024 measurement report (Zenodo)](https://doi.org/10.5281/zenodo.20563381): Mars surface radiation — 43,044 measurements, 9 learning cycles, 3 refused hypotheses.
 - [The Error That Survived 9 Learning Cycles on Mars (Substack)](https://nervousmachine.substack.com/p/the-error-that-survived-nine-learning): the persistent dose deficit that became a dated gap, then led to the two uncataloged solar-wind arrivals at Mars.
 - [Stress-testing sensor trust (Substack)](https://nervousmachine.substack.com/p/stress-testing-sensor-trust-through): SWARM-2024 — three satellites through the G5 Gannon superstorm; zero false flags through a 600 nT storm; a spoofed signal thirteen times smaller caught in 0.8 hours.
 - [Nervous Machine](https://nervousmachine.com): the causal-learning protocol behind this atlas.
 - [Nervous Machine Substack](https://nervousmachine.substack.com): essays including "Curiosity as Math" and "18,000 Reasons for Causal Learning".
+- [Heidi Bennett — ORCID](https://orcid.org/0009-0001-9760-9394): all papers behind this work, registered.
 
 ## Contact & offers
 
