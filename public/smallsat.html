@@ -241,15 +241,15 @@
 
     <section class="block">
         <div class="container">
-            <h3 class="section-title">Small enough to fly.</h3>
-            <div class="strip">
-                <span>&lt;1%<span class="l">compute</span></span>
-                <span>&lt;50 MB<span class="l">memory</span></span>
-                <span>&lt;0.5 W<span class="l">power</span></span>
-                <span>~1 KB/day<span class="l">shared, not telemetry</span></span>
-            </div>
-            <p>The learning loop runs onboard; operators share causal vectors, not raw telemetry. The same
-                kernel that does this on a smallsat is small enough to walk around a conference in a robot dog.</p>
+            <h3 class="section-title">One kernel, two boundaries.</h3>
+            <p>
+                The machine&rsquo;s own physics on the inside, the environment&rsquo;s on the outside — one
+                kernel learns both, on the device, as events unfold. The intersection is covered instead of
+                falling between two systems, and what leaves the spacecraft is learning, not telemetry.
+            </p>
+            <img src="intersection.svg"
+                alt="Concentric diagram: internal machine drivers (thermal, power, attitude, sensor health) inside, external environment drivers (neutral density, radiation dose, charging, solar heating) outside, causal edges crossing the hull between them — where the dangerous edge cases live. Ledger: raw telemetry stays aboard; learned structure moves at ~1 KB/day; footprint under 1% CPU, 50 MB, 0.5 W."
+                style="width:100%;height:auto;border:1px solid var(--border);border-radius:12px;">
         </div>
     </section>
 
